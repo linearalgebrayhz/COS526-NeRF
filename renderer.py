@@ -69,9 +69,9 @@ class Renderer(nn.Module):
             #----- alpha: [N_rays, N_samples]. Actual alpha values computed from volume density and sampled distance.
             #------------------------------------------------------
         
-            assert False, 'Please finish the code before removing this assertion'
+            # assert False, 'Please finish the code before removing this assertion'
             
-            alpha = ...
+            alpha = 1.0 - torch.exp(-act_fn(raw) * dists)
             
             return alpha
 
@@ -106,14 +106,14 @@ class Renderer(nn.Module):
         #----- acc_map: [num_rays]. Sum of weights along each ray.
         #------------------------------------------------------
 
-        assert False, 'Please finish the code before removing this assertion'
+        # assert False, 'Please finish the code before removing this assertion'
             
-        weights = ...
-        rgb_map = ...  
+        weights = alpha * torch.cumprod(torch.cat([torch.ones((alpha.shape[0], 1)), 1.0-alpha + 1e-10], -1), -1)[:, :-1]
+        rgb_map = torch.sum(weights[..., None] * rgb, -2)  
 
-        depth_map = ...
-        disp_map = ...
-        acc_map = ...
+        depth_map = torch.sum(weights * z_vals, -1)
+        disp_map = 1.0/torch.max(1e-10 * torch.ones_like(depth_map), depth_map / torch.sum(weights, -1))
+        acc_map = torch.sum(weights, -1)
 
         if self.white_bkgd:
             rgb_map = rgb_map + (1. - acc_map[..., None])
