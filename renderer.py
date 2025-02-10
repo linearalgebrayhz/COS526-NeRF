@@ -187,9 +187,9 @@ class Renderer(nn.Module):
         #----- pts: [N_rays, N_samples, 3] 3D point position
         #------------------------------------------------------
 
-        assert False, 'Please finish the code before removing this assertion'
+        # assert False, 'Please finish the code before removing this assertion'
 
-        pts = ...
+        pts = rays_o[..., None, :] + rays_d[..., None, :] * z_vals[..., :, None]
 
         # Pass sampled points through an implicit scene representation model
         raw = nerf(pts, viewdirs, self.netchunk)

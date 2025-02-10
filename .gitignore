@@ -1,0 +1,6 @@
+data
+./data_loader
+logs
+./__pycache__
+unzip.py
+tiny_nerf_data.npz
