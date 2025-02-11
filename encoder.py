@@ -36,6 +36,7 @@ class PositionalEncoder(nn.Module):
 
         for freq in freq_bands:
             for p_fn in periodic_fns:
+                # apply the periodic function to the input
                 embed_fn = lambda x, p_fn = p_fn, freq = freq: p_fn(x * freq)
                 embed_fns.append(embed_fn)
                 out_dim += d

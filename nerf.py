@@ -141,6 +141,7 @@ class NeRF(nn.Module):
                 outputs_chunk = self.output_linear(h)
 
             out.append(outputs_chunk)
+        # collect all chunks and reshape
         out_flat = torch.cat(out)
 
         outputs = torch.reshape(out_flat, list(inputs.shape[:-1]) + [out_flat.shape[-1]])
