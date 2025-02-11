@@ -77,10 +77,13 @@ class Renderer(nn.Module):
 
         device = raw.device
 
+        # compute distances between sampled points
+        # 1e10, a large number, is used to pad the last element of dists
         dists = z_vals[..., 1:] - z_vals[..., :-1]
         dists = torch.cat([dists, torch.tensor([1e10], device=device).expand(dists[..., :1].shape)],
                           -1)  # [N_rays, N_samples]
 
+        # why do we multiply by the norm of the ray direction?
         dists = dists * torch.norm(rays_d[..., None, :], dim=-1)
 
         rgb = torch.sigmoid(raw[..., :3])  # [N_rays, N_samples, 3]
