@@ -1,3 +1,5 @@
+# COS526 Assignment 1: NeRF
+
 ## Installation
 
 ```
@@ -49,4 +51,18 @@ After training for 200k iterations (~8 hours on a single 2080 Ti), you can find 
 
 ![](https://user-images.githubusercontent.com/7057863/78473081-58ea1600-7770-11ea-92ce-2bbf6a3f9add.gif)
 
-```
+## Implementations
+- `encoder.py`: positional encoding
+- `nerf.py`: MLP structure
+- `renderer.py`: volume rendering formula
+
+## Training
+One 2080Ti GPU. 5 hours for lego and 9 hours for fern.
+
+## Rendered video
+The videos can be found [here](https://drive.google.com/drive/folders/15CQAIGxMvpMBgk_xIKY0I0erR3LscZ6N?usp=sharing)
+
+## Bonus Task
+- customize render pose
+
+We can modify the transformation matrices in scripts in the data_loader directories to create new camera motions.
