@@ -34,7 +34,7 @@ class Model:
         self.lrate_decay = args.lrate_decay
         self.lrate = args.lrate
 
-        self.N_iters = 200000 + 1
+        self.N_iters = 300000 + 1
         self.N_ray_samples = args.N_rand
 
         self.chunk = args.chunk
